@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Masala Corner | Complete Food & Drinks Menu</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #cce7ff 0%, #a8d4fc 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, sans-serif;
+            padding: 2rem 1.2rem;
+            color: #023859;
+        }
+
+        .menu-wrapper {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(2px);
+            border-radius: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 30, 50, 0.2);
+            overflow: hidden;
+            padding: 1.5rem 1.8rem 2rem 1.8rem;
+        }
+
+        /* header */
+        .resto-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #7bc3f0;
+            padding-bottom: 1rem;
+        }
+
+        .resto-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(120deg, #02658b, #2a85b5);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .resto-header h1 i {
+            background: none;
+            color: #ff914d;
+        }
+
+        .location-contact {
+            background: #e3f2fdcc;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 12px;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .location-contact i {
+            margin-right: 6px;
+            color: #ff7e2e;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #2c6d91;
+            font-weight: 500;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            margin: 1.5rem 0 1rem 0;
+        }
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+            background: #e3f2fd;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #02658b;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .tab-btn i {
+            font-size: 1.2rem;
+        }
+        .tab-btn.active {
+            background: #2f95cf;
+            color: white;
+            box-shadow: 0 4px 12px rgba(47,149,207,0.4);
+        }
+        .tab-btn:hover:not(.active) {
+            background: #cde5f5;
+            transform: translateY(-2px);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active-tab {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* category grid */
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .menu-card {
+            background: #ffffffec;
+            border-radius: 1.8rem;
+            box-shadow: 0 8px 18px rgba(0, 40, 60, 0.08);
+            flex: 1 1 360px;
+            transition: all 0.25s ease;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,240,0.8);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 28px rgba(0, 70, 100, 0.12);
+            background: white;
+        }
+
+        .card-header {
+            background: #2f95cfdd;
+            padding: 0.8rem 1.3rem;
+            border-left: 8px solid #ffbe76;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+        }
+
+        .card-header h2 i {
+            font-size: 1.5rem;
+            filter: drop-shadow(1px 1px 0 #015c88);
+        }
+
+        .category-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #fef9e6;
+            padding: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border: 2px solid #ffffff;
+            transition: transform 0.2s;
+        }
+        .category-img:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-table-wrapper {
+            overflow-x: auto;
+            padding: 0.6rem 0.8rem 1rem 0.8rem;
+        }
+
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .menu-table th {
+            text-align: left;
+            padding: 8px 6px;
+            color: #1c6d97;
+            border-bottom: 2px solid #b9defa;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-table td {
+            padding: 9px 6px;
+            border-bottom: 1px solid #e1f0fe;
+            vertical-align: middle;
+        }
+
+        .code-cell {
+            font-weight: 700;
+            color: #ca6d2e;
+            background: #fef5ea;
+            width: 65px;
+            text-align: center;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #01415e;
+        }
+
+        .price {
+            text-align: right;
+            font-weight: 800;
+            color: #d45a1e;
+            background: #fff2e8;
+            padding: 4px 10px;
+            border-radius: 40px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .note-extra {
+            background: #fff6e8;
+            margin-top: 2rem;
+            border-radius: 1.5rem;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 0.7rem;
+            color: #22668d;
+            border-top: 1px solid #bbdef5;
+            padding-top: 18px;
+        }
+
+        @media (max-width: 750px) {
+            .menu-wrapper {
+                padding: 1rem;
+            }
+            .resto-header h1 {
+                font-size: 2rem;
+            }
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+            .category-img {
+                width: 55px;
+                height: 55px;
+            }
+            .tab-btn {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-wrapper">
+    <div class="resto-header">
+        <h1>
+            <i class="fas fa-utensils"></i> MASALA CORNER
+            <i class="fas fa-pepper-hot"></i>
+        </h1>
+        <div class="location-contact">
+            <span><i class="fas fa-location-dot"></i> A.Dh Fenfushi, Maldives</span>
+            <span><i class="fas fa-phone-alt"></i> +960 7555990</span>
+            <!--<span><i class="fas fa-clock"></i> 11:00 AM – 11:00 PM</span>-->
+        </div>
+        <div class="tagline">
+            <i class="fas fa-leaf"></i> Authentic Flavours | Fresh Ingredients | Takeaway Available
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="food"><i class="fas fa-utensils"></i> FOOD MENU</button>
+            <button class="tab-btn" data-tab="drinks"><i class="fas fa-mug-hot"></i> DRINKS & BEVERAGES</button>
+        </div>
+    </div>
+
+    <!-- FOOD MENU TAB (condensed from previous full version) -->
+    <div id="food-tab" class="tab-content active-tab">
+        <div class="category-grid">
+            <!-- SALAD -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-seedling"></i> SALAD</h2><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop" class="category-img" loading="lazy"></div>
+            <div class="menu-table-wrapper"><table class="menu-table"><thead><tr><th>CODE</th><th>ITEM</th><th>PRICE</th></tr></thead><tbody>
+            <tr><td class="code-cell">101</td><td class="item-name">Green Salad</td><td class="price">MVR 36.0</td></tr>
+            <tr><td class="code-cell">102</td><td class="item-name">Onion Salad</td><td class="price">MVR 30.0</td></tr>
+            <tr><td class="code-cell">103</td><td class="item-name">Cucumber Salad</td><td class="price">MVR 35.0</td></tr>
+            <tr><td class="code-cell">104</td><td class="item-name">Mix Salad</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">105</td><td class="item-name">Russian Salad</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">106</td><td class="item-name">Coleslaw Salad</td><td class="price">MVR 45.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- SOUP -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-mug-hot"></i> SOUP</h2><img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=100&h=100&fit=crop" class="category-img" loading="lazy"></div>
+            <div class="menu-table-wrapper"><table class="menu-table"><thead><tr><th>CODE</th><th>ITEM</th><th>PRICE</th></tr></thead><tbody>
+            <tr><td class="code-cell">107</td><td class="item-name">Vegetable Soup</td><td class="price">MVR 40.0</td></tr>
+            <tr><td class="code-cell">108</td><td class="item-name">Cream of Tomato Soup</td><td class="price">MVR 45.0</td></tr>
+            <tr><td class="code-cell">109</td><td class="item-name">Sweet Corn & Egg Drop</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">110</td><td class="item-name">Red Lentil Soup</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">111</td><td class="item-name">Tuna Noodles Soup</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">112</td><td class="item-name">Chicken Noodles Soup</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">113</td><td class="item-name">Cream Of Chicken Soup</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">114</td><td class="item-name">Sea Food Tom Yam Soup</td><td class="price">MVR 150.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- RICE -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-bowl-food"></i> RICE</h2><img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=100&h=100&fit=crop" class="category-img" loading="lazy"></div>
+            <div class="menu-table-wrapper"><table class="menu-table"><thead><tr><th>CODE</th><th>ITEM</th><th>PRICE</th></tr></thead><tbody>
+            <tr><td class="code-cell">115</td><td class="item-name">White Rice</td><td class="price">MVR 20.0</td></tr>
+            <tr><td class="code-cell">116</td><td class="item-name">Vegetable Fried Rice</td><td class="price">MVR 40.0</td></tr>
+            <tr><td class="code-cell">117</td><td class="item-name">Egg Fried Rice</td><td class="price">MVR 40.0</td></tr>
+            <tr><td class="code-cell">118</td><td class="item-name">Jeera Rice</td><td class="price">MVR 40.0</td></tr>
+            <tr><td class="code-cell">119</td><td class="item-name">Valhoamas Rice</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">120</td><td class="item-name">Tuna Fried Rice</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">121</td><td class="item-name">Chicken Fried Rice</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">122</td><td class="item-name">Beef Fried Rice</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">123</td><td class="item-name">Mix Fried Rice</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">124</td><td class="item-name">Naasigorang</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">125</td><td class="item-name">Mexican Fried Rice</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">126</td><td class="item-name">Mongolian Rice (Tuna/Chicken/Beef)</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">126</td><td class="item-name">Sea Fried Rice </td><td class="price">MVR 65.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- NOODLES  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-egg"></i> NOODLES</h2><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table class="menu-table"><tbody>
+            <tr><td class="code-cell">128</td><td class="item-name">Vegetable Fried Noodles</td><td class="price">MVR 40.0</td></tr><tr><td class="code-cell">129</td><td class="item-name">Egg Fried Noodles</td><td class="price">MVR 35.0</td></tr>
+            <tr><td class="code-cell">130</td><td class="item-name">Vaihoamas Noodles</td><td class="price">MVR 55.0</td></tr><tr><td class="code-cell">131</td><td class="item-name">Tuna Noodles (Normal)</td><td class="price">MVR 30.0</td></tr>
+            <tr><td class="code-cell">132</td><td class="item-name">Tuna Fried Noodles</td><td class="price">MVR 50.0</td></tr><tr><td class="code-cell">133</td><td class="item-name">Chicken Fried Noodles</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">134</td><td class="item-name">Beef Fried Noodles</td><td class="price">MVR 60.0</td></tr><tr><td class="code-cell">135</td><td class="item-name">Mix Fried Noodles</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">136</td><td class="item-name">Baamigorang</td><td class="price">MVR 70.0</td></tr><tr><td class="code-cell">137</td><td class="item-name">Mexican Fried Noodles</td><td class="price">MVR 70.0</td></tr>
+            <tr><td class="code-cell">138</td><td class="item-name">Mongolian Noodles</td><td class="price">MVR 70.0</td></tr><tr><td class="code-cell">139</td><td class="item-name">Sea Food Fried Noodles</td><td class="price">MVR 90.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- KOTTHU   -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i> KOHTHU ROSHI</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">140</td><td class="item-name">Vegetable Kohthu</td><td class="price">MVR 45.0</td></tr><tr><td class="code-cell">141</td><td class="item-name">Egg Kohthu</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">142</td><td class="item-name">Tuna Kohthu</td><td class="price">MVR 50.0</td></tr><tr><td class="code-cell">143</td><td class="item-name">Chicken Kohthu</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">144</td><td class="item-name">Beef Kohthu</td><td class="price">MVR 60.0</td></tr><tr><td class="code-cell">145</td><td class="item-name">Mix Kohthu</td><td class="price">MVR 80.0</td></tr>
+            <tr><td class="code-cell">146</td><td class="item-name">Sea Food Kohthu</td><td class="price">MVR 150.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- PHARATAA & NAAN -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-bread-slice"></i> PHARATAA & NAAN</h2><img src="https://images.unsplash.com/photo-1601050690357-992f9dfd8d8c?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody><tr><td class="code-cell">147</td><td class="item-name">Plain Pharaata</td><td class="price">MVR 10.0</td></tr>
+                <tr><td class="code-cell">148</td><td class="item-name">Egg Pharaata</td><td class="price">MVR 15.0</td></tr>
+                <tr><td class="code-cell">149</td><td class="item-name">Alu Pharaata</td><td class="price">MVR 20.0</td></tr>
+                <tr><td class="code-cell">150</td><td class="item-name">Plain Naan</td><td class="price">MVR 10.0</td></tr>
+                <tr><td class="code-cell">151</td><td class="item-name">Reydem Pharaata</td><td class="price">MVR 15.0</td></tr>
+                <tr><td class="code-cell">152</td><td class="item-name">Alu Naan</td><td class="price">MVR 25.0</td></tr>
+            </tbody></table></div></div>
+           
+
+            <!-- SHAWARUMA  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i> SHAWARUMA</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">140</td><td class="item-name">Chicken Shawaruma ( Half )</td><td class="price">MVR 30.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Chicken Shawaruma</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Beef Shawaruma ( Half )</td><td class="price">MVR 35.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Beef Shawaruma</td><td class="price">MVR 70.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Shawaruma ( Half )</td><td class="price">MVR 35.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Shawaruma</td><td class="price">MVR 70.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- PASTA OR SPAGHETTI  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i> PASTA OR SPAGHETTI</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">140</td><td class="item-name">Tuna sauce</td><td class="price">MVR 55.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Chicken Carbonara</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Beef Sauce ( Bolognaise )</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Ala Oli</td><td class="price">MVR 65.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Sea Food Cheese 4 Curry Flywar Prawns Cream </td><td class="price">MVR 100.0</td></tr>
+            </tbody></table></div></div>
+
+             <!-- WEGITARIAN  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i> WEGITARIAN</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">140</td><td class="item-name">Honey Chilli Potato</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Paneer 65</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Fried Paneer & Chilli Sauce</td><td class="price">MVR 60.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Tempura Vegitable</td><td class="price">MVR 50.0</td></tr>
+            <tr><td class="code-cell">140</td><td class="item-name">Fried Mushroom & Chilli Sauce </td><td class="price">MVR 60.0</td></tr>
+            </tbody></table></div></div>
+
+             <!-- FRIED ITEMS  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i> FRIED ITEMS</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">French Frice ( Small )</td><td class="price">MVR 30.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">French Frice ( Large )</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Fish & Chips</td><td class="price">MVR 55.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken & Chips</td><td class="price">MVR 65.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Crispy Chicken </td><td class="price">MVR 50.0</td></tr>
+            </tbody></table></div></div>
+
+
+             <!-- CHOPCY RICE   -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>CHOPCY RICE</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Vegitable Chopcy Rice</td><td class="price">MVR 55.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Chopcy Rice</td><td class="price">MVR 60.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Mix Chopcy Rice</td><td class="price">MVR 65.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Sea Food Choscy Rice</td><td class="price">MVR 80.0</td></tr>
+            </tbody></table></div></div>
+
+
+             <!-- THANDHOORI ITEMS   -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>THANDHOORI ITEMS</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken 65</td><td class="price">MVR 60.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Tikka</td><td class="price">MVR 70.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Chicken ( Half )</td><td class="price">MVR 90.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Chicken ( Full )</td><td class="price">MVR 180.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori achicken Wing</td><td class="price">MVR 80.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Prawns Kabaab</td><td class="price">MVR 200.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Sea Food Kabaab</td><td class="price">MVR 300.0</td></tr>
+            </tbody></table></div></div>
+
+
+             <!-- INDIAN SIDE DISH   -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>INDIAN SIDE DISH</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Dahal Tadka</td><td class="price">MVR 70.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Paneer Masala</td><td class="price">MVR 130.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Matter Mushroom</td><td class="price">MVR 80.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Mattar Paneer</td><td class="price">MVR 110.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Butter puneer Massala</td><td class="price">MVR 120.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Butter Chicken</td><td class="price">MVR 140.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Tikka Masala</td><td class="price">MVR 150.0</td></tr>
+            </tbody></table></div></div>
+
+              <!-- SANDWIHCH With Frice  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>SANDWIHCH With Frice</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Vegitable Sandwitch ( Small )</td><td class="price">MVR 20.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Vegitable Sandwitch</td><td class="price">MVR 40.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Cheeae & Tomato Sandwitch ( Small )</td><td class="price">MVR 25.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Cheese & Tomato Sandwitch </td><td class="price">MVR 40.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Egg Sandwitch ( Small )</td><td class="price">MVR 20.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Egg Sandwitch</td><td class="price">MVR 40.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Sandwitch ( Small )</td><td class="price">MVR 25.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Sandwitch</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Sandwitch ( Small )</td><td class="price">MVR 25.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Sandwitch</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Sandwitch ( Small ) </td><td class="price">MVR 25.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Sandwitch</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Club Sandwitch ( Slice )</td><td class="price">MVR 15.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Club Sandwitch ( Tuna or Chicken or Beef )</td><td class="price">MVR 60.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- BURGER With Frice  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>BURGER With Frice</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Vegitable Burger</td><td class="price">MVR 40.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Burger ( Small )</td><td class="price">MVR 20.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Burger</td><td class="price">MVR 70.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Burger ( Small ) </td><td class="price">MVR 30.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Burger</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">ispy Chicken Burber ( Small )</td><td class="price">MVR 35.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Crispy Chicken Burger</td><td class="price">MVR 50.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Burger ( Small )</td><td class="price">MVR 30.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Burger</td><td class="price">MVR 50.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- SUBMERIN With Frice  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>SUBMERIN With Frice</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Submarine ( Half )</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Submarine</td><td class="price">50</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Submarine ( Half )</td><td class="price">MVR 30.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Submarine </td><td class="price">MVR 55.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chilli Chicken Submarine ( Half )</td><td class="price">MVR 35.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chilli Chicken Submarine</td><td class="price">MVR 70.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Chicken Submarine ( Half )</td><td class="price">MVR 35.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Chicken Submarine</td><td class="price">MVR 70.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Submarine ( Half )</td><td class="price">MVR 35.0</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Submarine </td><td class="price">MVR 70.0</td></tr>
+            </tbody></table></div></div>
+
+            <!-- PIZZA  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>PIZZA</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Vegitable Pizza</td><td class="price">MVR 100</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Maagarita Pizza</td><td class="price">MVR 100</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna Pizza</td><td class="price">MVR 110</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Tuna & Mushroom Pizza </td><td class="price">MVR 130</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Pizza</td><td class="price">MVR 125</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken & mushroom Pizza</td><td class="price">MVR 145</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Chicken Pizza</td><td class="price">MVR 130</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Thandhoori Chicken Pizza</td><td class="price">MVR 150</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Valhoamas Pizza</td><td class="price">MVR 110</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Valhoamas & mushroom Pizza </td><td class="price">MVR 130</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Sosage Pizza</td><td class="price">MVR 120</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Sosage & Mushroom Pizza</td><td class="price">MVR 140</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef Pizza</td><td class="price">MVR 135</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef & Mushroom pizza </td><td class="price">MVR 155</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Cuttle Fish Pizza</td><td class="price">MVR 200</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Seafood Pizza</td><td class="price">MVR 300</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Mix Pizza</td><td class="price">MVR 150</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Mix Pizza With Mushroom</td><td class="price">MVR 170</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Extraa Mushroom</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Extraa Cheese </td><td class="price">MVR 40</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Extraa Tomato</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Extraa Olives</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Extraa Chilli</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Etraa Papadam</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Pizza Box </td><td class="price">MVR 6</td></tr>
+            </tbody></table></div></div>
+
+            <!-- DEVILLED ITEMS  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>DEVILLED ITEMS</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Fish</td><td class="price">MVR 55</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Chicken</td><td class="price">MVR 60</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled beef</td><td class="price">MVR 60</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Prawns </td><td class="price">MVR 150</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Cuttle fish</td><td class="price">MVR 130</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Devilled Octoopas</td><td class="price">MVR 130</td></tr>
+            </tbody></table></div></div>
+
+            <!-- SRI LANKA STEW  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>SRI LANKA STEW</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Hot Butter Mushroom</td><td class="price">MVR 65</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Hot butter Fish</td><td class="price">MVR 60</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Hot butter Chicken</td><td class="price">MVR 120</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Hot Butter cuttle fish </td><td class="price">MVR 150</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Hot butter Prawns</td><td class="price">MVR </td></tr>
+            </tbody></table></div></div>
+
+            <!-- SRI LANKAN RICE & CURRY  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>SRI LANKAN RICE & CURRY</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Fish Curry & 3 Vegitable Curry</td><td class="price">MVR 100</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Chicken Curry & 3 vegitable Curry</td><td class="price">MVR 120</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Beef curry & 3 Vegitable curry</td><td class="price">MVR 120</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Prawns curry & 3 Vegitable curry </td><td class="price">MVR 200</td></tr>
+            </tbody></table></div></div>
+
+            <!-- HOPERS  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>HOPERS</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Plain Hopers</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Egg Hopers</td><td class="price">MVR 25</td></tr>
+            </tbody></table></div></div>
+
+            <!-- BREAK FAST  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>BREAK FAST</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Continantal Breakfast</td><td class="price">MVR 45</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Maldivian Breakfast</td><td class="price">MVR 45</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Aadhaige Mushuni Break Fast</td><td class="price">MVR 40</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Farhumashuni Break Fast </td><td class="price">MVR 50</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Baked beans Break Fast</td><td class="price">MVR 40</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Kulhimas Break fast</td><td class="price">MVR 55</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Rihaakuru Break Fast</td><td class="price">MVR 45</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Boiled Egg</td><td class="price">MVR 6</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Sosage Rolls</td><td class="price">MVR 12</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Plain Omlet ( One Egg ) </td><td class="price">MVR 10</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Masala Cheese Omlet ( Two Egg )</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Cheese Omlet ( Two Egg )</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Slice Bread</td><td class="price">MVR 3</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation Butter </td><td class="price">MVR 7</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation Jam</td><td class="price">MVR 7</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Masala Omlet</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Roshi</td><td class="price">MVR 3</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Disk</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Fathumashuni</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Aadhaige Mashuni </td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Baked Beans</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Kulhimas</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Kulhi Rihaakuru</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Gerikiru</td><td class="price">MVR</td></tr>
+            </tbody></table></div></div>
+
+            <!-- DESSERTS  -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-utensil-spoon"></i>BREAK FAST</h2><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation apple</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation Orange</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">poation Bananan</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation Papaaya</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">poation Pine apple</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Poation mango</td><td class="price">MVR 40</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Fruit salad</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Fruit Salad & Ice Cream Single scoop</td><td class="price">MVR 50</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Watalapn</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Cream Cremal</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">140</td><td class="item-name">Banana Split (Banana & Ice Cream )</td><td class="price">MVR 60</td></tr>
+            </tbody></table></div></div>
+
+        </div>
+        <div class="note-extra"><span><i class="fas fa-receipt"></i> Full food menu with 300+ items | Takeaway + MVR 5</span><span><i class="fas fa-phone"></i> Order: +960 7555990</span></div>
+    </div>
+
+
+    <!-- DRINKS TAB (codes start from 1001) -->
+    <div id="drinks-tab" class="tab-content">
+        <div class="category-grid">
+            <!-- WATER-->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-tint"></i> WATER</h2><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe2c?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table class="menu-table"><tbody>
+                <tr><td class="code-cell">1001</td><td class="item-name">Glass Water</td><td class="price">MVR 3</td></tr>
+                <tr><td class="code-cell">1002</td><td class="item-name">Mineral Water (500ml)</td><td class="price">MVR 6</td></tr>
+                <tr><td class="code-cell">1003</td><td class="item-name">Mineral Water (1 Litre)</td><td class="price">MVR 12</td></tr>
+                <tr><td class="code-cell">1004</td><td class="item-name">Mineral Water (1.5 Litre)</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">1005</td><td class="item-name">San Pellegrino (500ml)</td><td class="price">MVR 55</td></tr>
+                <tr><td class="code-cell">1006</td><td class="item-name">San Pellegrino (750ml)</td><td class="price">MVR 75</td></tr>
+                <tr><td class="code-cell">1007</td><td class="item-name">Perrier (330ml)</td><td class="price">MVR 55</td></tr>
+                <tr><td class="code-cell">1008</td><td class="item-name">Perrier (750ml)</td><td class="price">MVR 75</td></tr>
+                <tr><td class="code-cell">1009</td><td class="item-name">Evian Water (500ml)</td><td class="price">MVR 55</td></tr>
+                <tr><td class="code-cell">1010</td><td class="item-name">Evian Water (1 Litre)</td><td class="price">MVR 75</td></tr>
+            </tbody></table></div></div>
+
+            <!-- NUTS & -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-seedling"></i> NUTS & SNACKS</h2><img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">1011</td><td class="item-name">Half Nuts</td><td class="price">MVR 7</td></tr>
+                <tr><td class="code-cell">1012</td><td class="item-name">Full Nuts</td><td class="price">MVR 14</td></tr>
+                <tr><td class="code-cell">1013</td><td class="item-name">Dhufi</td><td class="price">MVR 6</td></tr>
+                <tr><td class="code-cell">1014</td><td class="item-name">Kaashi Foah</td><td class="price">MVR 7</td></tr>
+                <tr><td class="code-cell">1015</td><td class="item-name">Molhu Bilai</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">1016</td><td class="item-name">Pearls</td><td class="price">MVR 3</td></tr>
+            </tbody></table></div></div>
+
+            <!-- SOFT DRINKS -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-cola"></i> SOFT DRINKS</h2><img src="https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">1017</td><td class="item-name">Coca Cola Bottle  (500ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1018</td><td class="item-name">Coca Cola Can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1019</td><td class="item-name">Coca Cola Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1020</td><td class="item-name">Dite Cola Bottle (500ml)</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">1021</td><td class="item-name">Dite Cola Can (330ml) </td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1022</td><td class="item-name">Dite Cola Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1023</td><td class="item-name">Fanta Orange Bottle (500ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1024</td><td class="item-name">Fanta Orange Can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1025</td><td class="item-name">Fanta Orange Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1026</td><td class="item-name">Sprite Bottle (500ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1027</td><td class="item-name">Sprite Can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1028</td><td class="item-name">sprite Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1029</td><td class="item-name">Sprite Zero Can (330ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1030</td><td class="item-name"> Srite Zero 185ml</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1031</td><td class="item-name">Fanta Strawberry Bottle (500ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1032</td><td class="item-name">Fanta strawberry Can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1022</td><td class="item-name">Fanta Strawberry Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1023</td><td class="item-name">Bitter Lemon Bottle (500ml)</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1024</td><td class="item-name">bitter Lemon Bottle (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1025</td><td class="item-name">Bitter lemon Can (185ml)</td><td class="price">MVR 17</td></tr>
+                <tr><td class="code-cell">1026</td><td class="item-name">Ice Cream Soda can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1027</td><td class="item-name">Fanta Grapes (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1028</td><td class="item-name">Tonic water Can (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1029</td><td class="item-name">Soda Water (330ml)</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1030</td><td class="item-name">kombucha Drinks</td><td class="price">MVR 22</td></tr>
+                <tr><td class="code-cell">1031</td><td class="item-name">Palestine Cola </td><td class="price">MVR 35</td></tr>
+                <tr><td class="code-cell">1032</td><td class="item-name">Palestine Cola Dite </td><td class="price">MVR 35</td></tr>
+
+            </tbody></table></div></div>
+
+            <!-- FLOATS -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-glass-cheers"></i> FLOATS</h2><img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">1033</td><td class="item-name">Coke Float (One Scoop Ice Cream)</td><td class="price">MVR 35</td></tr>
+                <tr><td class="code-cell">1034</td><td class="item-name">Fanta Float (One Scoop Ice Cream)</td><td class="price">MVR 35</td></tr>
+                <tr><td class="code-cell">1035</td><td class="item-name">Sprite Float (One Scoop Ice Cream)</td><td class="price">MVR 35</td></tr>
+                <tr><td class="code-cell">1036</td><td class="item-name">Fanta Cherry Float (One Scoop Ice Cream)</td><td class="price">MVR 35</td></tr>
+            </tbody></table></div></div>
+
+            <!-- HOT TEA & ICE TEA -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-mug-tea"></i> HOT TEA & ICE TEA</h2><img src="https://images.unsplash.com/photo-1544787219-7f47ccb77374?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">1037</td><td class="item-name">Black Tea</td><td class="price">MVR 3</td></tr>
+                <tr><td class="code-cell">1037</td><td class="item-name">Black Tea Large</td><td class="price">MVR 5</td></tr>
+                <tr><td class="code-cell">1038</td><td class="item-name">Milk Tea</td><td class="price">MVR 11</td></tr>
+                <tr><td class="code-cell">1038</td><td class="item-name">Flavoured Tea</td><td class="price">MVR 11</td></tr>
+                <tr><td class="code-cell">1038</td><td class="item-name">Bombay Tea</td><td class="price">MVR 11</td></tr>
+
+                <tr><td class="code-cell">1039</td><td class="item-name">Cardamom Tea</td><td class="price">MVR 11</td></tr>
+                <tr><td class="code-cell">1040</td><td class="item-name">Masala Tea</td><td class="price">MVR 11</td></tr>
+                <tr><td class="code-cell">1041</td><td class="item-name">Fresh Lemon Tea</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">1042</td><td class="item-name">Fresh Ginger Tea</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">1043</td><td class="item-name">Ice Lemon Tea</td><td class="price">MVR 25</td></tr>
+                
+                <tr><td class="code-cell">1039</td><td class="item-name">S. Lemon Tea</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">1040</td><td class="item-name">Cup Hot milk</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">1041</td><td class="item-name">Glass Hot Milk</td><td class="price">MVR 20</td></tr>
+                <tr><td class="code-cell">1042</td><td class="item-name">Ice milk Cup</td><td class="price">MVR 15</td></tr>
+                <tr><td class="code-cell">1043</td><td class="item-name">Ice Milk Glass</td><td class="price">MVR 20</td></tr>
+            </tbody></table></div></div>
+
+            <!-- HOT CHOCOLATE  &  ICE CHOCOLATE -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-mug-hot"></i> HOT CHOCOLATE  &  ICE CHOCOLATE</h2><img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+                <tr><td class="code-cell">1044</td><td class="item-name">Hot Chocolate</td><td class="price">MVR 25</td></tr>
+                <tr><td class="code-cell">1045</td><td class="item-name">Hot Milo</td><td class="price">MVR 25</td></tr>      
+                <tr><td class="code-cell">1045</td><td class="item-name">Ice Chocolate</td><td class="price">MVR 30</td></tr>
+                <tr><td class="code-cell">1045</td><td class="item-name">Ice Milo</td><td class="price">MVR 30</td></tr>
+            </tbody></table></div></div>
+
+
+            <!-- JUICES, MOJITO, MILKSHAKE -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-apple-alt"></i> FRESH JUICE & SMOOTHIES</h2><img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"></table><tbody>
+            <tr><td class="code-cell">1052</td><td class="item-name">Orange Juice (Fresh)</td><td class="price">MVR 55</td></tr>
+            <tr><td class="code-cell">1053</td><td class="item-name">Watermelon Juice</td><td class="price">MVR 30</td></tr>
+            <tr><td class="code-cell">1054</td><td class="item-name">Mango Juice</td><td class="price">MVR 40</td></tr>
+            <tr><td class="code-cell">1055</td><td class="item-name">Coconut Juice</td><td class="price">MVR 40</td></tr>
+            <tr><td class="code-cell">1056</td><td class="item-name">Passion Fruit Mojito</td><td class="price">MVR 45</td></tr>
+            <tr><td class="code-cell">1057</td><td class="item-name">Chocolate Milkshake</td><td class="price">MVR 45</td></tr>
+            <tr><td class="code-cell">1058</td><td class="item-name">Banana Smoothie</td><td class="price">MVR 45</td></tr>
+            </tbody></table></div></div>
+
+            <!-- ICE CREAM & DESSERT DRINKS -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-ice-cream"></i> ICE CREAM & MAGNUM</h2><img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">1059</td><td class="item-name">Ice Cream Single Scoop</td><td class="price">MVR 15</td></tr>
+            <tr><td class="code-cell">1060</td><td class="item-name">Sugar Cone</td><td class="price">MVR 25</td></tr>
+            <tr><td class="code-cell">1061</td><td class="item-name">Double Chocolate Magnum</td><td class="price">MVR 45</td></tr>
+            <tr><td class="code-cell">1062</td><td class="item-name">White Chocolate Magnum</td><td class="price">MVR 45</td></tr>
+            <tr><td class="code-cell">1063</td><td class="item-name">Illy Creamer Large</td><td class="price">MVR 70</td></tr>
+            </tbody></table></div></div>
+
+            <!-- ENERGY DRINKS & JUGO -->
+            <div class="menu-card"><div class="card-header"><h2><i class="fas fa-bolt"></i> ENERGY DRINKS & JUGO</h2><img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1cdf?w=100&h=100&fit=crop" class="category-img"></div>
+            <div class="menu-table-wrapper"><table><tbody>
+            <tr><td class="code-cell">1064</td><td class="item-name">Redbull</td><td class="price">MVR 55</td></tr>
+            <tr><td class="code-cell">1065</td><td class="item-name">XL Large (250ml)</td><td class="price">MVR 40</td></tr>
+            <tr><td class="code-cell">1066</td><td class="item-name">Tiger Energy Drink</td><td class="price">MVR 20</td></tr>
+            <tr><td class="code-cell">1067</td><td class="item-name">Jugo Vanilla</td><td class="price">MVR 30</td></tr>
+            <tr><td class="code-cell">1068</td><td class="item-name">Jugo Strawberry</td><td class="price">MVR 30</td></tr>
+            <tr><td class="code-cell">1069</td><td class="item-name">Boba Jelly</td><td class="price">MVR 15</td></tr>
+            </tbody></table></div></div>
+        </div>
+        <div class="note-extra"><span><i class="fas fa-mug-hot"></i> Drinks codes: 1001 to 1069 | Freshly prepared beverages</span><span><i class="fas fa-phone"></i> Call: +960 7555990</span></div>
+    </div>
+
+    <footer>
+        <i class="fas fa-heart" style="color:#f45b2e;"></i> Masala Corner – A.Dh Fenfushi, Maldives | All prices in Maldivian Rufiyaa (MVR) | Takeaway + MVR 5
+    </footer>
+</div>
+
+<script>
+    // Tab switching functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            tabContents.forEach(content => content.classList.remove('active-tab'));
+            if (tabId === 'food') {
+                document.getElementById('food-tab').classList.add('active-tab');
+            } else {
+                document.getElementById('drinks-tab').classList.add('active-tab');
+            }
+        });
+    });
+</script>
+</body>
+</html>
